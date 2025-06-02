@@ -33,6 +33,10 @@ mongoose
     await server.start()
     server.applyMiddleware({ app });
 
+    app.get('/health', (req, res) => {
+      res.json({ status: 'OK', uptime: process.uptime(), timestamp: Date.now() });
+    });
+
     app.listen({ port: process.env.PORT || 4000 }, () =>
       console.log(`Server ready at http://localhost:4000${server.graphqlPath}`)
     );
